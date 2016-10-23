@@ -1,0 +1,40 @@
+Indique cual/es de las siguientes opciones son verdaderas:
+a) En algún caso el valor de x al terminar el programa es 56.
+b) En algún caso el valor de x al terminar el programa es 22.
+c) En algún caso el valor de x al terminar el programa es 23.
+d) x puede obtener un valor incorrecto por interferencias.
+e) Si las instrucciones fueran atómicas, x puede obtener un valor incorrecto por interferencias.
+f) Si las instrucciones fueran atómicas, indique las posibles alternativas de ejecución.
+
+P1::
+If (x = 0) {
+y:= 4*2;
+x:= y + 2;
+}
+P2::
+If (x > 0) {
+x:= x + 1;
+}
+P3::
+x:= (x*3) + (x*2) + 1;
+
+
+
+Autor de respuesta: ferminmine
+https://github.com/ferminmine
+
+A, B y C) Como las instrucciones se ejecutan de manera no-atómica y sobre memoria
+compartida, esto implica que los caminos de ejecución son muchos y hay que tener en cuenta
+que se puede estar ejecutando una parte (ni siquiera toda) de una instrucción de P1 y que luego
+este fragmento de dicha instrucción modifique en la mitad de la ejecución de otra instrucción que se esté
+ejecutando en alguno de los otros procesos.
+Las combinaciones que se pueden obtener son muchas y combinando las posibilidades es posible obtener como resultado
+que X valga 56, 22 y 23 dependiendo del camino de ejecución del programa.
+
+D) La interferencia es un concepto análogo a la violación de la atomicidad, por eso pueden darse resultados incorrectos
+si el valor de una varible que está siendo utilizada por una instrucción es modificada por otro proceso antes que termine de ejecutarse.
+
+E) Si las instrucciones fueran atómicas aun asi podría haber error ya qe el valor de la variable X dentro del IF podría ser cambiado y entrar a un bloque que se supone
+que no debería entrar.
+Ejemplo: Se evalúa que x=0 como verdadera en P1, sin embargo antes que pueda entrar al bloque, X cambia a un valor distinto de 0,
+entonces cuando se ejecuta el bloque del IF en P1, es algo inválido porque se supone que debería haber entrado a ese bloque solo si X era igual a 0.
