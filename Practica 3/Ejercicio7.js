@@ -48,6 +48,7 @@ Monitor Agrupador [k=1 to 25] {
   listos = 0; Cond esperando; int nota;
 
   Procedure terminar (int nota_sacada) {
+    listos++;
     if (listos != 2) {
       wait(esperando);
     } else {

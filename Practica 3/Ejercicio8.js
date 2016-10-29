@@ -13,6 +13,11 @@ Nota: no se deben fabricar camisas de más. No se puede suponer nada sobre los t
 es decir, el tiempo en que un operario tarda en buscar los elementos, ni el tiempo en que
 tarda un grupo en fabricar una camisa.
 
+NOTA IMPORTANTE DE CORRECCIÓN: No está bien distribuir en cantidades iguales la carga de trabajo.
+    Si un proceso es "vago", va a tardar mucho en hacer cuatro camisas, y si otro proceso
+    "es más eficaz", va a hacer 4 y va a quedarse ocioso esperando al que tarda más.
+    Si uno puede trabajar más entonces que lo haga, y al que le cueste más que trabaje
+    menos.
 
 Autor del código: ferminmine
 https://github.com/ferminmine
@@ -27,7 +32,8 @@ Process Operario [i=1 to 40] {
   Coordinador.autorizar_camisa(autorizacion);
   while (autorizacion) {
     Deposito[carga].obtener(recurso1);
-    Deposito[carga].obtener(recurso2);
+    Deposito[carga++].obtener(recurso2);
+    carga--;
     Grupo[grupo_asignado].esperar_recursos();
     Coordinador.terminar_camisa();
     Coordinador.autorizar_camisa(autorizacion);
